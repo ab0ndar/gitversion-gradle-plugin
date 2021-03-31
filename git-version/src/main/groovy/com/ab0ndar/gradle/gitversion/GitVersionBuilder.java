@@ -10,20 +10,21 @@ import java.util.regex.Pattern;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.Ref;
-import org.gradle.internal.impldep.org.apache.commons.lang.StringUtils;
 
 public class GitVersionBuilder {
+  // Example: 1.0.0-13-g68ff004-SNAPSHOT
   private static final Pattern DESCRIBE_PATTERN =
       Pattern.compile("^([0-9]+\\.[0-9]+\\.[0-9]+)-([0-9]+)-(g.+)(-SNAPSHOT)?$");
 
   protected final Git git;
   protected volatile String gitDescribeOutput = null;
 
-  protected static final Set<String> EXCLUDE_SET = new HashSet<>();
+  protected static final Set<String> SHORT_VERSION_BRANCH_NAMES = new HashSet<>();
   static {
-    EXCLUDE_SET.add("master");
-    EXCLUDE_SET.add("release");
-    EXCLUDE_SET.add("hotfix");
+    SHORT_VERSION_BRANCH_NAMES.add("main");
+    SHORT_VERSION_BRANCH_NAMES.add("master");
+    SHORT_VERSION_BRANCH_NAMES.add("release");
+    SHORT_VERSION_BRANCH_NAMES.add("hotfix");
   }
 
   GitVersionBuilder(Git git) {
@@ -32,7 +33,7 @@ public class GitVersionBuilder {
 
   String getVersion() {
     describe();
-    if (StringUtils.isBlank(gitDescribeOutput)) {
+    if (gitDescribeOutput == null || gitDescribeOutput.trim().length() == 0) {
       throw new GitVersionException("Git describe command returns empty result");
     }
 
@@ -43,9 +44,8 @@ public class GitVersionBuilder {
           gitDescribeOutput + "\nExpected pattern: " + DESCRIBE_PATTERN.pattern());
     }
 
-    if (!EXCLUDE_SET.contains(branchName.toLowerCase())) {
-      final String distance = matcher.group(2);
-      return matcher.replaceFirst("(1)-"+distance+"-(3)");
+    if (SHORT_VERSION_BRANCH_NAMES.contains(branchName.toLowerCase())) {
+      return matcher.group(1);
     }
 
     return gitDescribeOutput;
