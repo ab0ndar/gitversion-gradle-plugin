@@ -1,0 +1,29 @@
+group 'com.ab0ndar.gradle.gitversion'
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
+}
+
+configurations {
+    // configuration that holds jars to include in the jar
+    extraLibs
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    extraLibs "org.eclipse.jgit:org.eclipse.jgit:5.3.2.201906051522-r"
+    extraLibs 'com.google.guava:guava:23.5-jre'
+
+    configurations.compile.extendsFrom(configurations.extraLibs)
+}
+
+jar {
+    from {
+        configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

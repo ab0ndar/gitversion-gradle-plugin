@@ -1,0 +1,28 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath fileTree(include: ['*.jar'], dir: '../git-version/build/libs')
+    }
+}
+
+plugins {
+    id 'groovy'
+}
+
+apply plugin: 'com.ab0ndar.git-version'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+}
+
+task printProps {
+    doLast {
+        println gitVersion()
+    }
+}
