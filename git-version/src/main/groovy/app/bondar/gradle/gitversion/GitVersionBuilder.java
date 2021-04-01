@@ -78,7 +78,7 @@ public class GitVersionBuilder {
     try {
       ref = git.getRepository().findRef(git.getRepository().getBranch());
     } catch (Exception e) {
-      throw new GitVersionException("Failed to obtain git branch", e);
+      throw new GitVersionException("Failed to retrieve git branch name", e);
     }
 
     return (ref == null)?null:ref.getName().substring(Constants.R_HEADS.length());
