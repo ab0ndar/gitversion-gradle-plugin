@@ -1,6 +1,6 @@
-package com.ab0ndar.gradle.gitversion;
+package app.bondar.gradle.gitversion;
 
-import static com.ab0ndar.gradle.gitversion.GitVersionUtils.executeGitCommand;
+import static app.bondar.gradle.gitversion.GitVersionUtils.executeGitCommand;
 
 import java.util.HashSet;
 import java.util.List;

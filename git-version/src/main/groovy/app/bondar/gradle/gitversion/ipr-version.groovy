@@ -1,6 +1,7 @@
-package com.ab0ndar.gradle.gitversion
+package app.bondar.gradle.gitversion
 
-import static com.ab0ndar.gradle.gitversion.GitVersionUtils.findGitRepo
+
+import static app.bondar.gradle.gitversion.GitVersionUtils.findGitRepo
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
