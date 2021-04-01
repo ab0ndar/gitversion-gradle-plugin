@@ -1,14 +1,7 @@
-//buildscript {
-//    repositories {
-//        mavenCentral()
-//    }
-//    dependencies {
-//        classpath 'app.bondar.gradle.gitversion:git-version:1.0.0'
-//    }
-//}
-
 plugins {
     id 'groovy'
+    id 'maven'
+    id 'signing'
 }
 
 //apply plugin: 'app.bondar.git-version'
@@ -16,16 +9,88 @@ plugins {
 allprojects {
     group 'app.bondar.gradle.gitversion'
     version "1.0.0" //gitVersion()
+    archivesBaseName = "gitversion-gradle-plugin"
 }
 
 subprojects {
     apply plugin: 'groovy'
-    apply plugin: 'maven-publish'
+    apply plugin: 'maven'
+    apply plugin: 'signing'
 
     repositories {
         mavenLocal()
         maven {
             url = 'https://repo.maven.apache.org/maven2'
+        }
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        archiveClassifier = 'javadoc'
+        from javadoc
+    }
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        archiveClassifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    artifacts {
+        archives javadocJar
+        archives sourcesJar
+    }
+
+    signing {
+        def signingKeyId = findProperty("signingKeyId")
+        def signingKey = findProperty("signingKey")
+        def signingPassword = findProperty("signingPassword")
+        useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+
+        sign configurations.archives
+    }
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { deployment -> signing.signPom(deployment) }
+
+                repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                    authentication(userName: System.getenv("MAVEN_USERNAME"),
+                            password: System.getenv("MAVEN_PASSWORD"))
+                }
+
+                snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+                    authentication(userName: System.getenv("MAVEN_USERNAME"),
+                            password: System.getenv("MAVEN_PASSWORD"))
+                }
+
+                pom.project {
+                    name 'gitversion-gradle-plugin'
+                    packaging 'jar'
+
+                    description 'Gradle plugin able to generate project version from Git tag and revision'
+
+                    scm {
+                        connection 'scm:git:https://github.com/ab0ndar/gitversion-gradle-plugin.git'
+                        developerConnection 'scm:git:https://github.com/ab0ndar/gitversion-gradle-plugin.git'
+                        url 'https://github.com/ab0ndar/gitversion-gradle-plugin'
+                    }
+
+                    licenses {
+                        license {
+                            name 'The Apache License, Version 2.0'
+                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'abondar'
+                            name 'Alex Bondar'
+                            email 'abondar@gmail.com'
+                        }
+                    }
+                }
+            }
         }
     }
 }
