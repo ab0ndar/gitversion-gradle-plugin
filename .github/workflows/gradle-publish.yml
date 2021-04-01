@@ -1,4 +1,4 @@
-name: Publish to Maven repository with Gradle
+name: publish
 
 on:
   release:
@@ -14,10 +14,10 @@ jobs:
         with:
           java-version: 1.8
       - name: Publish package
-        run: gradle uploadArchives
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: '${{ secrets.OSSRH_PASSWORD }}'
           ORG_GRADLE_PROJECT_signingKey: '${{ secrets.SIGNING_KEY }}'
           ORG_GRADLE_PROJECT_signingKeyId: ${{ secrets.SIGNING_KEY_ID }}
           ORG_GRADLE_PROJECT_signingPassword: '${{ secrets.SIGNING_KEY_SECRET }}'
+        run: gradle uploadArchives
