@@ -4,11 +4,9 @@ plugins {
     id 'signing'
 }
 
-//apply plugin: 'app.bondar.git-version'
-
 allprojects {
-    group 'app.bondar.gradle.gitversion'
-    version "1.0.0" //gitVersion()
+    group 'app.bondar.gradle'
+    version "1.0.3" //gitVersion()
     archivesBaseName = "gitversion-gradle-plugin"
 }
 

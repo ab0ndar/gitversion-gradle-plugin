@@ -1,4 +1,4 @@
-package app.bondar.gradle.gitversion;
+package app.bondar.gradle;
 
 public class GitVersionException extends IllegalStateException {
 

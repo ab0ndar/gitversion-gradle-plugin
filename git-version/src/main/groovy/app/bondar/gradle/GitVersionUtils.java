@@ -1,4 +1,4 @@
-package app.bondar.gradle.gitversion;
+package app.bondar.gradle;
 
 import java.io.BufferedReader;
 import java.io.File;

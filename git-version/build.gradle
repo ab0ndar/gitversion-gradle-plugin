@@ -1,4 +1,4 @@
-group 'app.bondar.gradle.gitversion'
+group 'app.bondar.gradle'
 
 repositories {
     jcenter()

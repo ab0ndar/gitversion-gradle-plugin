@@ -1,4 +1,4 @@
-package app.bondar.gradle.gitversion;
+package app.bondar.gradle;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.tasks.TaskAction;
 

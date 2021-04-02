@@ -11,7 +11,7 @@ plugins {
     id 'groovy'
 }
 
-apply plugin: 'app.bondar.git-version'
+apply plugin: 'git-version'
 
 repositories {
     mavenCentral()

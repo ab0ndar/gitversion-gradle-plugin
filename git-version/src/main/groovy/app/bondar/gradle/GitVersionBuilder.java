@@ -1,6 +1,4 @@
-package app.bondar.gradle.gitversion;
-
-import static app.bondar.gradle.gitversion.GitVersionUtils.executeGitCommand;
+package app.bondar.gradle;
 
 import java.util.HashSet;
 import java.util.List;
@@ -62,7 +60,7 @@ public class GitVersionBuilder {
         throw new GitVersionException("Git repo has no tags, unable to generate a project version");
       }
 
-      gitDescribeOutput = executeGitCommand(git.getRepository().getWorkTree(),
+      gitDescribeOutput = GitVersionUtils.executeGitCommand(git.getRepository().getWorkTree(),
           "describe", "--tags", "--long", "--dirty=-SNAPSHOT");
     } catch (GitVersionException e) {
       throw e;

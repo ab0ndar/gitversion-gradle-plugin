@@ -1,7 +1,7 @@
-package app.bondar.gradle.gitversion
+package app.bondar.gradle
 
 
-import static app.bondar.gradle.gitversion.GitVersionUtils.findGitRepo
+import static GitVersionUtils.findGitRepo
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
