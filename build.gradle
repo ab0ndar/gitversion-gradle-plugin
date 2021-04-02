@@ -65,6 +65,7 @@ subprojects {
 
                 pom.project {
                     name 'gitversion-gradle-plugin'
+                    url 'https://github.com/ab0ndar/gitversion-gradle-plugin'
                     packaging 'jar'
 
                     description 'Gradle plugin able to generate project version from Git tag and revision'
