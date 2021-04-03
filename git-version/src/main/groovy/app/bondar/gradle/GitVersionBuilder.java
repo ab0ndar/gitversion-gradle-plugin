@@ -11,6 +11,8 @@ import org.eclipse.jgit.lib.Ref;
 
 public class GitVersionBuilder {
   // Example: 1.0.0-13-g68ff004-SNAPSHOT
+  // TODO: replace with google regex
+  // TODO: add version prefix to regex
   private static final Pattern DESCRIBE_PATTERN =
       Pattern.compile("^([0-9]+\\.[0-9]+\\.[0-9]+)-([0-9]+)-(g.+)(-SNAPSHOT)?$");
 

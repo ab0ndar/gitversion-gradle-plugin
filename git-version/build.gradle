@@ -1,5 +1,3 @@
-group 'app.bondar.gradle'
-
 repositories {
     jcenter()
     mavenCentral()
@@ -26,4 +24,5 @@ jar {
     from {
         configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
     }
+    baseName 'app.bondar.gradle.git-version.gradle.plugin'
 }

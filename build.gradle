@@ -2,10 +2,13 @@ plugins {
     id 'groovy'
     id 'maven'
     id 'signing'
+    id 'app.bondar.gradle.git-version' version '1.0.3'
 }
 
+apply plugin: 'app.bondar.gradle.git-version'
+
 allprojects {
-    group 'app.bondar.gradle'
+    group 'app.bondar.gradle.git-version'
     version "1.0.3" //gitVersion()
     archivesBaseName = "gitversion-gradle-plugin"
 }
