@@ -25,6 +25,11 @@ subprojects {
         }
     }
 
+    dependencies {
+        testImplementation group: 'org.testng', name: 'testng', version: '7.4.0'
+        testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+    }
+
     task javadocJar(type: Jar, dependsOn: javadoc) {
         archiveClassifier = 'javadoc'
         from javadoc

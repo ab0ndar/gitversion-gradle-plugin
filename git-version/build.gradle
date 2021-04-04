@@ -16,6 +16,7 @@ dependencies {
     compile localGroovy()
     extraLibs "org.eclipse.jgit:org.eclipse.jgit:5.3.2.201906051522-r"
     extraLibs 'com.google.guava:guava:23.5-jre'
+    extraLibs 'com.google.re2j:re2j:1.6'
 
     configurations.compile.extendsFrom(configurations.extraLibs)
 }
