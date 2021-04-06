@@ -2,10 +2,10 @@ plugins {
     id 'groovy'
     id 'maven'
     id 'signing'
-    id 'app.bondar.gradle.git-version' version '1.0.0'
+//    id 'app.bondar.gradle.git-version' version '1.0.0'
 }
 
-apply plugin: 'app.bondar.gradle.git-version'
+//apply plugin: 'app.bondar.gradle.git-version'
 
 allprojects {
     group 'app.bondar.gradle.git-version'
