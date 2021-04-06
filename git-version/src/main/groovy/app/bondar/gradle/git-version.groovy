@@ -24,6 +24,6 @@ class GitVersionPlugin implements Plugin<Project> {
         properties.set("gitVersion", { args -> return new GitVersionBuilder(git).getVersion() })
 
         // Declare gradle task gitVersion that prints project version based on git tasg and revision to stdout
-        project.getTasks().create("gitVersion", GitVersionTask.class)
+        project.getTasks().create("gitVersion", GitVersionTask.class, git)
     }
 }
